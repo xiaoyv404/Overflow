@@ -249,7 +249,7 @@ internal class FileWrapper(
     override val contact: GroupWrapper,
     override var parent: FolderWrapper,
     override val id: String,
-    override val name: String,
+    override var name: String,
     override val md5: ByteArray,
     override val sha1: ByteArray,
     override val size: Long,
@@ -317,7 +317,14 @@ internal class FileWrapper(
     }
 
     override suspend fun renameTo(newName: String): Boolean {
-        TODO("暂无重命名文件实现")
+        if (!contact.bot.appName.lowercase().contains("napcat")) {
+            throw PermissionDeniedException("当前 Onebot 实现不支持移动文件")
+        }
+        val success = impl.renameGroupFIle(contact.id, id, parent.id, newName).data?.ok ?: false
+        if (success) {
+            this.name = newName
+        }
+        return success
     }
 
     override fun toMessage(): FileMessage {

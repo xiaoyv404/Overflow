@@ -268,4 +268,9 @@ enum class ActionPathEnum(
      * 移动群文件
      */
     MOVE_GROUP_FILE("move_group_file"),
+
+    /**
+     * 重命名群文件
+     */
+    RENAME_GROUP_FILE("rename_group_file"),
 }
