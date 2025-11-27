@@ -34,7 +34,7 @@ internal class RemoteFilesWrapper(
             }.data
 
             val root = FolderWrapper(
-                this, null, "/", "/", 0, 0, 0, data?.files?.size ?: 0
+                this, null, AbsoluteFolder.ROOT_FOLDER_ID, "/", 0, 0, 0, data?.files?.size ?: 0
             )
             if (data != null) {
                 root.update(data)
