@@ -1070,7 +1070,7 @@ internal class Bot(
     }
 
     /**
-     * 移动群文件
+     * 重命名群文件
      * @param groupId 群号
      * @param fileId 文件ID
      * @param currentParentDirectoryId 目前父文件夹ID 参考 Folder 对象
