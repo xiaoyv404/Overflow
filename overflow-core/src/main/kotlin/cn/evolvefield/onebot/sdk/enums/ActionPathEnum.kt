@@ -271,6 +271,8 @@ enum class ActionPathEnum(
 
     /**
      * 重命名群文件
+     *
+     * 属于 NapCat 扩展 API
      */
     RENAME_GROUP_FILE("rename_group_file"),
 
