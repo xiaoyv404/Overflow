@@ -273,4 +273,11 @@ enum class ActionPathEnum(
      * 重命名群文件
      */
     RENAME_GROUP_FILE("rename_group_file"),
+
+    /**
+     * 重命名群文件夹
+     *
+     * 属于 LLOnebot 扩展 API
+     */
+    RENAME_GROUP_FILE_FOLDER("rename_group_file_folder"),
 }

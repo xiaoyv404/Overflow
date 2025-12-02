@@ -13,6 +13,7 @@ import net.mamoe.mirai.contact.file.AbsoluteFolder
 import net.mamoe.mirai.contact.file.RemoteFiles
 import net.mamoe.mirai.message.data.FileMessage
 import net.mamoe.mirai.utils.*
+import top.mrxiaom.overflow.internal.check
 import top.mrxiaom.overflow.internal.contact.GroupWrapper
 import top.mrxiaom.overflow.internal.contact.data.RemoteFilesWrapper.Companion.update
 import top.mrxiaom.overflow.internal.message.data.WrappedFileMessage
@@ -55,7 +56,7 @@ internal class FolderWrapper(
     override val contact: GroupWrapper,
     override val parent: AbsoluteFolder? = null,
     override val id: String,
-    override val name: String,
+    override var name: String,
     override val lastModifiedTime: Long,
     override val uploadTime: Long,
     override val uploaderId: Long,
@@ -95,7 +96,14 @@ internal class FolderWrapper(
     }
 
     override suspend fun renameTo(newName: String): Boolean {
-        TODO("暂无重命名文件夹实现")
+        if (!contact.bot.appName.lowercase().contains("llonebot")) {
+            throw PermissionDeniedException("当前 Onebot 实现不支持移动文件夹")
+        }
+        val success = impl.renameGroupFIleFolder(contact.id, id, newName).check("重命名文件夹失败，详见网络日志 (logs/onebot)")
+        if (success) {
+            this.name = newName
+        }
+        return success
     }
 
     override suspend fun children(): Flow<AbsoluteFileFolder> {

@@ -1042,6 +1042,31 @@ internal class Bot(
     }
 
     /**
+     * 重命名群文件夹
+     * @param groupId 群号
+     * @param folderId 文件夹ID
+     * @param newName 目标文件夹名称
+     * @param context  Onebot 主动操作的上下文
+     */
+    @JvmBlockingBridge
+    @JvmOverloads
+    suspend fun renameGroupFIleFolder(
+        groupId: Long,
+        folderId: String,
+        newName: String,
+        context: Context = {},
+    ): ActionRaw {
+        val action = context.build(ActionPathEnum.RENAME_GROUP_FILE_FOLDER)
+        val params = JsonObject().apply {
+            addProperty("group_id", groupId)
+            addProperty("folder_id", folderId)
+            addProperty("new_folder_name", newName)
+        }
+        val result = actionHandler.action(this, action, params)
+        return result.withClass()
+    }
+
+    /**
      * 移动群文件
      * @param groupId 群号
      * @param fileId 文件ID
