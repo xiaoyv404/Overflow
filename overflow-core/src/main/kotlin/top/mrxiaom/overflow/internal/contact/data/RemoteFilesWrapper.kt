@@ -181,10 +181,10 @@ internal class FolderWrapper(
     }
 
     override suspend fun resolveFileById(id: String, deep: Boolean): AbsoluteFile? {
-        if (deep) {
-            TODO("暂不支持深入子目录查找文件")
-        }
-        return files.firstOrNull { it.id == id }
+        files.firstOrNull { it.id == id }?.let { return it }
+        if (!deep) return null
+
+        return folders.map { it.resolveFileById(id, true) }.firstOrNull() { it != null }
     }
 
     override suspend fun resolveFiles(path: String): Flow<AbsoluteFile> {
