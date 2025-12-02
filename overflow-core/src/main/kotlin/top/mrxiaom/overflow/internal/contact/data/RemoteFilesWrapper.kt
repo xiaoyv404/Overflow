@@ -328,7 +328,7 @@ internal class FileWrapper(
         if (!contact.bot.appName.lowercase().contains("napcat")) {
             throw PermissionDeniedException("当前 Onebot 实现不支持移动文件")
         }
-        val success = impl.renameGroupFIle(contact.id, id, parent.id, newName).data?.ok ?: false
+        val success = impl.renameGroupFIle(contact.id, id, parent.id, newName).check("重命名文件失败，详见网络日志 (logs/onebot)")
         if (success) {
             this.name = newName
         }
