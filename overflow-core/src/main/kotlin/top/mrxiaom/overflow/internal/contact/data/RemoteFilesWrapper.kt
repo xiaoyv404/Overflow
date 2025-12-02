@@ -306,7 +306,7 @@ internal class FileWrapper(
         if (folder !is FolderWrapper)
             return false
         val success =
-            impl.moveGroupFIle(contact.id, id, parent.id, folder.id).data?.ok ?: false
+            impl.moveGroupFIle(contact.id, id, parent.id, folder.id).check("移动文件失败，详见网络日志 (logs/onebot)")
         if (success) {
             parent.files.remove(this)
             parent = folder

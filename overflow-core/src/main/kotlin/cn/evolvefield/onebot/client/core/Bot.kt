@@ -15,7 +15,6 @@ import cn.evolvefield.onebot.sdk.response.contact.LoginInfoResp
 import cn.evolvefield.onebot.sdk.response.contact.StrangerInfoResp
 import cn.evolvefield.onebot.sdk.response.ext.CreateGroupFileFolderResp
 import cn.evolvefield.onebot.sdk.response.ext.GetFileResp
-import cn.evolvefield.onebot.sdk.response.ext.MoveGroupFIleResp
 import cn.evolvefield.onebot.sdk.response.ext.SetGroupReactionResp
 import cn.evolvefield.onebot.sdk.response.ext.UploadGroupFileResp
 import cn.evolvefield.onebot.sdk.response.group.*
@@ -1081,7 +1080,7 @@ internal class Bot(
         currentParentDirectoryId: String,
         targetParentDirectoryId: String,
         context: Context = {},
-    ): ActionData<MoveGroupFIleResp> {
+    ): ActionRaw {
         val action = context.build(ActionPathEnum.MOVE_GROUP_FILE)
         val params = JsonObject().apply {
             addProperty("group_id", groupId)
@@ -1090,7 +1089,7 @@ internal class Bot(
             addProperty("target_parent_directory", targetParentDirectoryId)
         }
         val result = actionHandler.action(this, action, params)
-        return result.withToken()
+        return result.withClass()
     }
 
     /**
